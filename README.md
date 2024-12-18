@@ -7,3 +7,8 @@
 Interface Gráfica - Figma
 ###
 https://www.figma.com/design/mOWQYc7agTUixNay8JUhkW/BioSexPredict?node-id=1-2&m=dev&t=8zA9JeyQQ2DhmGiQ-1
+
+
+Diagrama de Requisitos
+###
+https://docs.google.com/document/d/1fELIUfa20lkFsHEFQEjAahcS2aR7V2-ybsklxsWT7TE/edit?usp=sharing
