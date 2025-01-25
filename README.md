@@ -7,3 +7,5 @@
 
 ### Diagrama de Requisitos
 <a href="https://docs.google.com/document/d/1fELIUfa20lkFsHEFQEjAahcS2aR7V2-ybsklxsWT7TE/edit?usp=sharing" target="_blank">https://docs.google.com/document/d/1fELIUfa20lkFsHEFQEjAahcS2aR7V2-ybsklxsWT7TE/edit?usp=sharing</a>
+
+
