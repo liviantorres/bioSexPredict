@@ -27,14 +27,6 @@ const DivContainer = styled.div`
   }
 `;
 
-const Button = styled.button`
-  background-color: #F8CC7B;
-  font-family: 'Inter', sans-serif;
-  color: #000;
-  border-radius: 4px;
-  
-`;
-
 const CatalogarIndividuo = () => {
   return (
     <ContainerPrincipal>
@@ -45,7 +37,7 @@ const CatalogarIndividuo = () => {
     <CardCaracteristicas
     
     />
-<Button>Prever sexo</Button>
+
     
     </ContainerPrincipal>
   );
