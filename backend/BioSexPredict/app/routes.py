@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from app.models import User
 from app.database import db
+import jwt
+from datetime import datetime, timedelta
+from functools import wraps
 
 user_bp = Blueprint('user_bp', __name__, url_prefix='/users')
 
@@ -54,3 +57,45 @@ def delete_user(user_id):
     db.session.delete(user)
     db.session.commit()
     return jsonify({"message": "Usuário deletado"}), 200
+
+auth_bp = Blueprint('auth_bp', __name__, url_prefix='/auth')
+
+def generate_token(user_id):
+    payload = {
+        'user_id': user_id,
+        'exp': datetime.utcnow() + timedelta(hours=1)
+    }
+    token = jwt.encode(payload, 'ce03a871-7d74-4992-a48c-6124cb43f617', algorithm='HS256')
+    return token
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token:
+            return jsonify({"error": "Token não encontrado"}), 401
+        try:
+            data = jwt.decode(token, 'ce03a871-7d74-4992-a48c-6124cb43f617', algorithms=['HS256'])
+            current_user = User.query.get(data['user_id'])
+        except jwt.ExpiredSignatureError:
+            return jsonify({"error": "Token expirado"}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({"error": "Token inválido"}), 401
+        return f(current_user, *args, **kwargs)
+    return decorated
+
+@auth_bp.route('/login', methods=['POST'])
+def login():
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    if not email or not password:
+        return jsonify({"error": "Email e senha são necessárias"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user or not user.check_password(password):
+        return jsonify({"error": "Credenciais inválidas"}), 401
+
+    token = generate_token(user.id)
+    return jsonify({"token": token}), 200
