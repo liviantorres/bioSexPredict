@@ -13,7 +13,7 @@ def generate_token(user_id):
         'user_id': user_id,
         'exp': datetime.utcnow() + timedelta(hours=1)
     }
-    token = jwt.encode(payload, 'sua_chave_secreta_aqui', algorithm='HS256')
+    token = jwt.encode(payload, 'ce03a871-7d74-4992-a48c-6124cb43f617', algorithm='HS256')
     return token
 
 def token_required(f):
@@ -23,7 +23,7 @@ def token_required(f):
         if not token:
             return jsonify({"error": "Token is missing"}), 401
         try:
-            data = jwt.decode(token, 'sua_chave_secreta_aqui', algorithms=['HS256'])
+            data = jwt.decode(token, 'ce03a871-7d74-4992-a48c-6124cb43f617', algorithms=['HS256'])
             current_user = User.query.get(data['user_id'])
         except jwt.ExpiredSignatureError:
             return jsonify({"error": "Token has expired"}), 401
