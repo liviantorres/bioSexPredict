@@ -14,13 +14,13 @@ def get_user(user_id):
     user = User.query.get(user_id)
     if user:
         return jsonify(user.to_dict()), 200
-    return jsonify({"error": "User not found"}), 404
+    return jsonify({"error": "Usuário não encontrado"}), 404
 
 @user_bp.route('/', methods=['POST'])
 def create_user():
     data = request.json
     if not data.get('name') or not data.get('email') or not data.get('password'):
-        return jsonify({"error": "Name, email, and password are required"}), 400
+        return jsonify({"error": "Nome, email e senha são necessários."}), 400
     new_user = User(name=data['name'], email=data['email'])
     new_user.set_password(data['password'])
     db.session.add(new_user)
@@ -31,7 +31,7 @@ def create_user():
 def update_user(user_id):
     user = User.query.get(user_id)
     if not user:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"error": "Usuário não encontrado"}), 404
 
     data = request.json
 
@@ -50,7 +50,7 @@ def update_user(user_id):
 def delete_user(user_id):
     user = User.query.get(user_id)
     if not user:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"error": "Usuário não encontrado"}), 404
     db.session.delete(user)
     db.session.commit()
-    return jsonify({"message": "User deleted"}), 200
+    return jsonify({"message": "Usuário deletado"}), 200
