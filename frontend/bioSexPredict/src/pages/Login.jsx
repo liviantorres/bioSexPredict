@@ -11,7 +11,7 @@ const ContainerLogin = styled.div`
 
 const StyledImage = styled.img`
   width: 100%;
-  height: 100%; 
+  height: 100%;
   object-fit: cover;
   border-radius: 10px 0px 0px 10px;
 `;
@@ -19,28 +19,28 @@ const StyledImage = styled.img`
 const DivContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: stretch; 
+  align-items: stretch;
   width: 50%;
-  border-radius: 10px; 
-  overflow: hidden; 
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const DivLeft = styled.div`
-  flex: 1.2; 
+  flex: 1.2;
   position: relative;
 `;
 
 const TextOverlay = styled.p`
-   position: absolute;
-   bottom: 10px; 
-   left: 25%;
-  color: #FFFFFF;
+  position: absolute;
+  bottom: 10px;
+  left: 25%;
+  color: #ffffff;
   font-family: "Inter", sans-serif;
   font-size: 24px;
   font-weight: 200;
   font-style: italic;
   text-align: center;
-  z-index: 2; 
+  z-index: 2;
 `;
 
 const GradientOverlay = styled.div`
@@ -56,12 +56,11 @@ const GradientOverlay = styled.div`
     rgba(0, 0, 0, 0.3)
   );
   border-radius: 10px 0px 0px 10px;
-  pointer-events: none; 
+  pointer-events: none;
 `;
 
-
 const DivRight = styled.div`
-  flex: 1; 
+  flex: 1;
   font-family: "Archivo", sans-serif;
   background-color: #e0edff;
   display: flex;
@@ -85,7 +84,6 @@ const DivRight = styled.div`
     width: 100%;
     height: 2px;
     background-color: #cccc;
-   
   }
 
   & button {
@@ -124,11 +122,11 @@ const DivRight = styled.div`
   & a {
     text-decoration: none;
     font-weight: 600;
-    color: #1957A7;
+    color: #1957a7;
     cursor: pointer;
   }
 
-  & a:hover{
+  & a:hover {
     color: #1957a7c5;
   }
 `;
@@ -138,11 +136,9 @@ const Login = () => {
     <ContainerLogin>
       <DivContainer>
         <DivLeft>
-           
           <StyledImage src="login.png" alt="" />
-          <GradientOverlay/>
+          <GradientOverlay />
           <TextOverlay>Bio Sex Predict</TextOverlay>
-         
         </DivLeft>
         <DivRight>
           <h2>Entrar</h2>
