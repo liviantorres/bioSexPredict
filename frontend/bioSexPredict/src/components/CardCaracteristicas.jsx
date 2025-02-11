@@ -4,9 +4,9 @@ import styled from "styled-components";
 const FullScreenContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center; 
-  align-items: center;     
-  height: 100vh;             
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
 
 const ContainerCard = styled.div`
@@ -117,10 +117,9 @@ const Titulo = styled.h2`
   border-radius: 6px 6px 0px 0px;
 `;
 
-
 const Button = styled.button`
-  background-color: #F8CC7B;
-  font-family: 'Inter', sans-serif;
+  background-color: #f8cc7b;
+  font-family: "Inter", sans-serif;
   color: #000;
   border-radius: 4px;
   margin-top: 25px;
@@ -128,22 +127,20 @@ const Button = styled.button`
   height: 35px;
   border: none;
   cursor: pointer;
-  
+
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: all 1.0s ease;
+  transition: all 1s ease;
   &:hover {
-    background-color: #e0b86d;   
-    transform: scale(1.05);   
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    background-color: #e0b86d;
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(248, 204, 123, 0.6); 
+    box-shadow: 0 0 0 3px rgba(248, 204, 123, 0.6);
   }
 `;
-
-
 
 const CardCaracteristicas = () => {
   const [image, setImage] = useState("/imagePerfil.svg");

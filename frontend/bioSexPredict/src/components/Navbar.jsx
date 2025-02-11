@@ -55,7 +55,7 @@ const DivContainer = styled.div`
   align-items: center;
   gap: 0px;
 
-  & div{
+  & div {
     margin: 0px 20px 0px 20px;
   }
 `;
@@ -78,7 +78,7 @@ const Navbar = () => {
         </StyledNavLink>
 
         <div>
-        <FaRegCircleUser size={34} color="white" />
+          <FaRegCircleUser size={34} color="white" />
         </div>
       </DivContainer>
     </NavbarContainer>
