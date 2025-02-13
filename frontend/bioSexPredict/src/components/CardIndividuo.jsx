@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import ModalEditar from "./ModalExibir";
+import ModalExibir from "./ModalExibir";
+import ModalEditar from "./ModalEditar";
 
 const CardContainer = styled.div`
   background: #e0edff;
@@ -111,6 +112,16 @@ const individuos = [
 
 const CardIndividuo = ({ counter, img, id, sexo }) => {
   const [modal, setModal] = useState(false);
+  const [modalEditar, setModalEditar] = useState(false);
+
+  const openEditar = () => {
+    setModal(false);
+    setModalEditar(true);
+  };
+  const closeEditar = () => {
+    setModal(false);
+    setModalEditar(true);
+  };
 
   return (
     <>
@@ -121,8 +132,15 @@ const CardIndividuo = ({ counter, img, id, sexo }) => {
       </CardContainer>
 
       {modal && (
-        <ModalEditar
+        <ModalExibir
           onClose={() => setModal(false)}
+          individuo={individuos[counter]}
+          modalEditar={openEditar}
+        />
+      )}
+      {modalEditar && (
+        <ModalEditar
+          onClose={() => setModalEditar(false)}
           individuo={individuos[counter]}
         />
       )}

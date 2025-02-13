@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { darken } from "polished";
+
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -133,20 +133,8 @@ const CloseButton = styled(IoIosClose)`
   }
 `;
 
-const ModalExibir = ({ onClose, individuo }) => {
-  const [image, setImage] = useState("/imagePerfil.svg");
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
+const ModalExibir = ({ onClose, individuo, modalEditar }) => {
+  
   return (
     <ModalOverlay>
       <ContainerCard>
@@ -189,10 +177,11 @@ const ModalExibir = ({ onClose, individuo }) => {
           </DivRight>
         </Div>
         <ContainerBotoes>
-          <Button>Editar indivíduo</Button>
+          <Button onClick={modalEditar}>Editar indivíduo</Button>
           <Button color="#D9D9D9">Excluir indivíduo</Button>
         </ContainerBotoes>
       </ContainerCard>
+     
     </ModalOverlay>
   );
 };
