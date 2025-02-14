@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import ModalExibir from "./ModalExibir";
 import ModalEditar from "./ModalEditar";
+import ModalExcluir from "./ModalExcluirIndividuo";
 
 const CardContainer = styled.div`
   background: #e0edff;
@@ -113,15 +114,17 @@ const individuos = [
 const CardIndividuo = ({ counter, img, id, sexo }) => {
   const [modal, setModal] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
+  const [modalExcluir, setModalExcluir] = useState(false);
 
   const openEditar = () => {
     setModal(false);
     setModalEditar(true);
   };
-  const closeEditar = () => {
+ 
+  const openExcluir = () =>{
     setModal(false);
-    setModalEditar(true);
-  };
+    setModalExcluir(true);
+  }
 
   return (
     <>
@@ -136,11 +139,19 @@ const CardIndividuo = ({ counter, img, id, sexo }) => {
           onClose={() => setModal(false)}
           individuo={individuos[counter]}
           modalEditar={openEditar}
+          modalExcluir={openExcluir}
         />
       )}
       {modalEditar && (
         <ModalEditar
           onClose={() => setModalEditar(false)}
+          individuo={individuos[counter]}
+        />
+      )}
+
+      {modalExcluir && (
+        <ModalExcluir
+          onClose={() => setModalExcluir(false)}
           individuo={individuos[counter]}
         />
       )}
