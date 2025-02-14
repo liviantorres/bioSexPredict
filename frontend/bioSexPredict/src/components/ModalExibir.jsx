@@ -133,7 +133,7 @@ const CloseButton = styled(IoIosClose)`
   }
 `;
 
-const ModalExibir = ({ onClose, individuo, modalEditar }) => {
+const ModalExibir = ({ onClose, individuo, modalEditar, modalExcluir }) => {
   
   return (
     <ModalOverlay>
@@ -178,7 +178,7 @@ const ModalExibir = ({ onClose, individuo, modalEditar }) => {
         </Div>
         <ContainerBotoes>
           <Button onClick={modalEditar}>Editar indivíduo</Button>
-          <Button color="#D9D9D9">Excluir indivíduo</Button>
+          <Button onClick={modalExcluir} color="#D9D9D9">Excluir indivíduo</Button>
         </ContainerBotoes>
       </ContainerCard>
      
