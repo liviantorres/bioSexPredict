@@ -120,11 +120,11 @@ const CardIndividuo = ({ counter, img, id, sexo }) => {
     setModal(false);
     setModalEditar(true);
   };
- 
-  const openExcluir = () =>{
+
+  const openExcluir = () => {
     setModal(false);
     setModalExcluir(true);
-  }
+  };
 
   return (
     <>

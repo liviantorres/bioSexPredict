@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
 import { darken } from "polished";
 
-
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -134,7 +133,6 @@ const CloseButton = styled(IoIosClose)`
 `;
 
 const ModalExibir = ({ onClose, individuo, modalEditar, modalExcluir }) => {
-  
   return (
     <ModalOverlay>
       <ContainerCard>
@@ -178,10 +176,11 @@ const ModalExibir = ({ onClose, individuo, modalEditar, modalExcluir }) => {
         </Div>
         <ContainerBotoes>
           <Button onClick={modalEditar}>Editar indivíduo</Button>
-          <Button onClick={modalExcluir} color="#D9D9D9">Excluir indivíduo</Button>
+          <Button onClick={modalExcluir} color="#D9D9D9">
+            Excluir indivíduo
+          </Button>
         </ContainerBotoes>
       </ContainerCard>
-     
     </ModalOverlay>
   );
 };
