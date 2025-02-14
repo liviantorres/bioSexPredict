@@ -69,7 +69,7 @@ const Label = styled.label`
   gap: 10px;
   margin-top: 10px;
   font-size: 14px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const P = styled.label`
@@ -92,7 +92,7 @@ const Input = styled.input`
   outline: none;
   padding-left: 6px;
   margin-top: 6px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const Textarea = styled.textarea`
@@ -102,7 +102,7 @@ const Textarea = styled.textarea`
   outline: none;
   width: 100%;
   resize: vertical;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 `;
 
 const Div = styled.div`
@@ -169,7 +169,9 @@ const ModalEditar = ({ onClose, individuo }) => {
   const [frontalSA, setFrontalSA] = useState(individuo.frontalS_A || "");
   const [frontalLR, setFrontalLR] = useState(individuo.frontalL_R || "");
   const [frontalSR, setFrontalSR] = useState(individuo.frontalS_R || "");
-  const [maxilarDirSI, setMaxilarDirSI] = useState(individuo.maxilarDireitoS_I || "");
+  const [maxilarDirSI, setMaxilarDirSI] = useState(
+    individuo.maxilarDireitoS_I || ""
+  );
   const [frontalSI, setFrontalSI] = useState(individuo.frontalS_I || "");
   const [frontalSL, setFrontalSL] = useState(individuo.frontalS_L || "");
   const [frontalAR, setFrontalAR] = useState(individuo.frontalA_R || "");

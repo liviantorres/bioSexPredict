@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { HiIdentification } from "react-icons/hi2";
-import CardCaracteristicas from "../components/CardCaracteristicas"
+import CardCaracteristicas from "../components/CardCaracteristicas";
 
 const ContainerPrincipal = styled.div`
   background-color: #1957a7;
@@ -9,7 +9,6 @@ const ContainerPrincipal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 `;
 
 const DivContainer = styled.div`
@@ -22,7 +21,7 @@ const DivContainer = styled.div`
   margin-top: 20px;
   padding-bottom: 8px;
   & p {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     color: white;
   }
 `;
@@ -30,15 +29,11 @@ const DivContainer = styled.div`
 const CatalogarIndividuo = () => {
   return (
     <ContainerPrincipal>
-    <DivContainer>
-        <HiIdentification color="white" size={30}/>
+      <DivContainer>
+        <HiIdentification color="white" size={30} />
         <p>Adicionar novo indivíduo</p>
-    </DivContainer>
-    <CardCaracteristicas
-    
-    />
-
-    
+      </DivContainer>
+      <CardCaracteristicas />
     </ContainerPrincipal>
   );
 };
