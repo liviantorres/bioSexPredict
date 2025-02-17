@@ -1,6 +1,6 @@
 from flask import Flask
 from app.database import init_db
-from app.routes import user_bp, auth_bp
+from app.routes import user_bp, auth_bp, individual_bp
 from flask_migrate import Migrate
 from app.database import db
 
@@ -12,5 +12,8 @@ def create_app():
     init_db(app)
     app.register_blueprint(user_bp)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(individual_bp)
     Migrate(app, db)
+
+
     return app
