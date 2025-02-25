@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { setUser } from '../../redux/slices/tabSlice';
+import { setUser } from '../redux/slices/tabSlice';
 import { urlApi } from '../utils/urlRequests';
 
 const ContainerLogin = styled.div`
