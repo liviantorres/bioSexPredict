@@ -167,10 +167,8 @@ const Login = () => {
 
       dispatch(
         setUser({
-          accessToken: responseData.access_token,
-          refreshToken: responseData.refresh_token,
-          userId: responseData.user_id,
-          roles: responseData.roles,
+          accessToken: responseData.token,
+          userId: responseData.user_id
         })
       );
 
