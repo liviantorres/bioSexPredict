@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { setUser } from '../../redux/slices/tabSlice';
 import { urlApi } from '../utils/urlRequests';
 
 const ContainerLogin = styled.div`
@@ -137,6 +139,7 @@ const DivRight = styled.div`
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onSubmit = async () => {
@@ -162,14 +165,14 @@ const Login = () => {
 
       const responseData = await response.json();
 
-      /*dispatch(
+      dispatch(
         setUser({
           accessToken: responseData.access_token,
           refreshToken: responseData.refresh_token,
           userId: responseData.user_id,
           roles: responseData.roles,
         })
-      );*/
+      );
 
       navigate('/inicio');
     } catch (error) {
