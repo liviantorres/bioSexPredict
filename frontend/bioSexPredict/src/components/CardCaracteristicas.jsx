@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axiosInstance from "../redux/axios_instance";
 
 const FullScreenContainer = styled.div`
   display: flex;
@@ -144,6 +145,15 @@ const Button = styled.button`
 
 const CardCaracteristicas = () => {
   const [image, setImage] = useState("/imagePerfil.svg");
+  const [descricao, setDescricao] = useState("");
+  const [e_ap, setE_ap] = useState("");
+  const [f_lr, setF_lr] = useState("");
+  const [f_sa, setF_sa] = useState("");
+  const [f_si, setF_si] = useState("");
+  const [f_sl, setF_sl] = useState("");
+  const [f_sr, setF_sr] = useState("");
+  const [identificator, setIdentificator] = useState("");
+  const [md_si, setMd_si] = useState("");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -154,6 +164,27 @@ const CardCaracteristicas = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const onSubmit = async () => {
+    try {
+      await axiosInstance.post(`/individuals`, {
+        descricao: descricao,
+        e_ap: e_ap,
+        f_lr: f_lr,
+        f_sa: f_sa,
+        f_si: f_si,
+        f_sl: f_sl,
+        f_sr: f_sr,
+        identificator: identificator,
+        md_si: md_si,
+        img: image
+      });
+      
+    } catch (error) {
+      //
+    }
+
   };
 
   return (
@@ -177,51 +208,56 @@ const CardCaracteristicas = () => {
             <Label htmlFor="">Localização:</Label>
             <Input type="text" />
             <Label htmlFor="">Descrição:</Label>
-            <Textarea type="" />
+            <Textarea type="" onChange={(e) => setDescricao(e.target.value)}/>
           </DivLeft>
           <DivMiddle>
             <Label htmlFor="">
               Identificador: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setIdentificator(e.target.value)}/>
 
             <P>Extração de medidas</P>
 
             <Label htmlFor="">
               Frontal S-A: <Asterisk>*</Asterisk>
             </Label>
+            <Input type="text" onChange={(e) => setF_sa(e.target.value)}/>
 
-            <Input type="text" />
             <Label htmlFor="">
               Frontal L-R: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setF_lr(e.target.value)}/>
+
             <Label htmlFor="">
               Frontal S-R:<Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setF_sr(e.target.value)}/>
+
             <Label htmlFor="">
               Maxilar direito S-I: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setMd_si(e.target.value)}/>
+
           </DivMiddle>
           <DivRight>
             <Label htmlFor="">
               Frontal S-I: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setF_si(e.target.value)}/>
+
             <Label htmlFor="">
               Frontal S-L: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setF_sl(e.target.value)}/>
+
             <Label htmlFor="">
               Frontal A-R: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" />
+            <Input type="text" onChange={(e) => setE_ap(e.target.value)}/>
           </DivRight>
         </Div>
       </ContainerCard>
-      <Button>Prever sexo</Button>
+      <Button onClick={onSubmit}>Prever sexo</Button>
     </FullScreenContainer>
   );
 };
