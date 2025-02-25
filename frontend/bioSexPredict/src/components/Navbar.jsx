@@ -116,7 +116,7 @@ const Navbar = () => {
             <NavLink to="/inicio/perfil">
               <FiEdit size={16} /> Editar Perfil
             </NavLink>
-            <NavLink to="/logout">
+            <NavLink to="/">
               <FiLogOut size={16} color="red" /> Sair
             </NavLink>
           </DropdownMenu>
