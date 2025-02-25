@@ -5,7 +5,10 @@ import joblib
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-dataset_path = 'app\dataset\seios_selected.xlsx'
+dataset_path = 'app/dataset/seios_selected.xlsx'
+
+#dataset_path = 'app\dataset\seios_selected.xlsx'
+
 seios = pd.read_excel(dataset_path, sheet_name=0)
 
 def normalization(dataset):
