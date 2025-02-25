@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { urlApi } from '../utils/urlRequests';
 
 const ContainerLogin = styled.div`
   width: 100%;
@@ -132,6 +135,35 @@ const DivRight = styled.div`
 `;
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = async () => {
+    try {
+      const response = await fetch(`${urlApi}/users`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao fazer login');
+      }
+
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ContainerLogin>
       <DivContainer>
@@ -143,12 +175,12 @@ const Register = () => {
         <DivRight>
           <h2>Cadastrar</h2>
           <label htmlFor="">Nome:</label>
-          <input type="text" />
+          <input name="name" type="text" onChange={(e) => setName(e.target.value)} />
           <label htmlFor="">Email:</label>
-          <input type="text" />
+          <input name="email" type="text" onChange={(e) => setEmail(e.target.value)}/>
           <label htmlFor="">Senha:</label>
-          <input type="password" />
-          <button>Cadastrar</button>
+          <input name="password" type="password" onChange={(e) => setPassword(e.target.value)} />
+          <button onClick={onSubmit}>Cadastrar</button>
           <p>
             Já possui uma conta? <a href="/">Entrar</a>
           </p>
