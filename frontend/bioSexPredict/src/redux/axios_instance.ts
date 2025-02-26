@@ -4,7 +4,7 @@ import { store } from './store';
 import { urlApi } from '../utils/urlRequests';
 
 const axiosInstance = axios.create({
-  baseURL: urlApi + "/api",
+  baseURL: urlApi,
 });
 
 axiosInstance.interceptors.request.use((config) => {

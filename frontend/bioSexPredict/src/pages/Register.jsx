@@ -142,7 +142,7 @@ const Register = () => {
 
   const onSubmit = async () => {
     try {
-      const response = await fetch(`${urlApi}/users`, {
+      const response = await fetch(`${urlApi}/users/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

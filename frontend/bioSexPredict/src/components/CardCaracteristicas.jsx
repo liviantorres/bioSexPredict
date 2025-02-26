@@ -168,7 +168,7 @@ const CardCaracteristicas = () => {
 
   const onSubmit = async () => {
     try {
-      await axiosInstance.post(`/individuals`, {
+      await axiosInstance.post(`/individuals/`, {
         descricao: descricao,
         e_ap: e_ap,
         f_lr: f_lr,
