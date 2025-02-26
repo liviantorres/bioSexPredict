@@ -73,10 +73,14 @@ const IndividuosCatalogados = () => {
   const [modal, setModal] = useState(false);
   const itensPorPagina = 8;
   const [paginaAtual, setPaginaAtual] = useState(0);
+  const [onFetch, setOnFetch] = useState(false);
 
   useEffect(() => {
     fetchData();
-  }, []);
+    if (onFetch) {
+      setOnFetch(false);
+    }
+  }, [onFetch]);
 
   const fetchData = async () => {
     try {
@@ -106,6 +110,7 @@ const IndividuosCatalogados = () => {
               img={individuo.img}
               identificator={individuo.identificador}
               sexo={individuo.sexo}
+              onFetch={() => setOnFetch(true)}
             />
           ))
         ) : (

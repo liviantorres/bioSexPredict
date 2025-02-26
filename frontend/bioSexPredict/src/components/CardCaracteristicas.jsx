@@ -146,14 +146,14 @@ const Button = styled.button`
 const CardCaracteristicas = () => {
   const [image, setImage] = useState("/imagePerfil.svg");
   const [descricao, setDescricao] = useState("");
-  const [e_ap, setE_ap] = useState("");
-  const [f_lr, setF_lr] = useState("");
-  const [f_sa, setF_sa] = useState("");
-  const [f_si, setF_si] = useState("");
-  const [f_sl, setF_sl] = useState("");
-  const [f_sr, setF_sr] = useState("");
+  const [e_ap, setE_ap] = useState(0);
+  const [f_lr, setF_lr] = useState(0);
+  const [f_sa, setF_sa] = useState(0);
+  const [f_si, setF_si] = useState(0);
+  const [f_sl, setF_sl] = useState(0);
+  const [f_sr, setF_sr] = useState(0);
   const [identificator, setIdentificator] = useState("");
-  const [md_si, setMd_si] = useState("");
+  const [md_si, setMd_si] = useState(0);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -183,15 +183,16 @@ const CardCaracteristicas = () => {
 
       alert("Indivíduo cadastrado com sucesso!");
 
-      setDescricao('')
-      setIdentificator('')
-      setF_sa('')
-      setF_lr('')
-      setF_sr('')
-      setMd_si('')
-      setF_si('')
-      setF_sl('')
-      setE_ap('')
+      setImage("/imagePerfil.svg");
+      setDescricao("")
+      setIdentificator("")
+      setF_sa(0)
+      setF_lr(0)
+      setF_sr(0)
+      setMd_si(0)
+      setF_si(0)
+      setF_sl(0)
+      setE_ap(0)
       
     } catch (error) {
       alert(error.message);
@@ -219,52 +220,52 @@ const CardCaracteristicas = () => {
             <Label htmlFor="">Localização:</Label>
             <Input type="text" />
             <Label htmlFor="">Descrição:</Label>
-            <Textarea type="" onChange={(e) => setDescricao(e.target.value)}/>
+            <Textarea type="" value={descricao} onChange={(e) => setDescricao(e.target.value)}/>
           </DivLeft>
           <DivMiddle>
             <Label htmlFor="">
               Identificador: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setIdentificator(e.target.value)}/>
+            <Input type="text" value={identificator} onChange={(e) => setIdentificator(e.target.value)}/>
 
             <P>Extração de medidas</P>
 
             <Label htmlFor="">
               Frontal S-A: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setF_sa(e.target.value)}/>
+            <Input type="text" value={f_sa} onChange={(e) => setF_sa(e.target.value)}/>
 
             <Label htmlFor="">
               Frontal L-R: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setF_lr(e.target.value)}/>
+            <Input type="text" value={f_lr} onChange={(e) => setF_lr(e.target.value)}/>
 
             <Label htmlFor="">
               Frontal S-R:<Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setF_sr(e.target.value)}/>
+            <Input type="text" value={f_sr} onChange={(e) => setF_sr(e.target.value)}/>
 
             <Label htmlFor="">
               Maxilar direito S-I: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setMd_si(e.target.value)}/>
+            <Input type="text" value={md_si} onChange={(e) => setMd_si(e.target.value)}/>
 
           </DivMiddle>
           <DivRight>
             <Label htmlFor="">
               Frontal S-I: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setF_si(e.target.value)}/>
+            <Input type="text" value={f_si} onChange={(e) => setF_si(e.target.value)}/>
 
             <Label htmlFor="">
               Frontal S-L: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setF_sl(e.target.value)}/>
+            <Input type="text" value={f_sl} onChange={(e) => setF_sl(e.target.value)}/>
 
             <Label htmlFor="">
               Frontal A-R: <Asterisk>*</Asterisk>
             </Label>
-            <Input type="text" onChange={(e) => setE_ap(e.target.value)}/>
+            <Input type="text" value={e_ap} onChange={(e) => setE_ap(e.target.value)}/>
           </DivRight>
         </Div>
       </ContainerCard>

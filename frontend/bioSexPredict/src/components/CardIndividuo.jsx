@@ -36,7 +36,7 @@ const InfoText = styled.p`
   width: 100%;
 `;
 
-const CardIndividuo = ({ id, img, identificator, sexo }) => {
+const CardIndividuo = ({ id, img, identificator, sexo, onFetch }) => {
   const [modal, setModal] = useState(false);
   const [modalEditar, setModalEditar] = useState(false);
   const [modalExcluir, setModalExcluir] = useState(false);
@@ -77,7 +77,8 @@ const CardIndividuo = ({ id, img, identificator, sexo }) => {
       {modalExcluir && (
         <ModalExcluir
           onClose={() => setModalExcluir(false)}
-          individuo={individuos[counter]}
+          onFetch={onFetch}
+          id={id}
         />
       )}
     </>
