@@ -174,7 +174,7 @@ const Login = () => {
 
       navigate('/inicio');
     } catch (error) {
-      console.error(error);
+      alert(error.message);
     }
   };
 

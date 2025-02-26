@@ -180,11 +180,22 @@ const CardCaracteristicas = () => {
         md_si: md_si,
         img: image
       });
+
+      alert("Indivíduo cadastrado com sucesso!");
+
+      setDescricao('')
+      setIdentificator('')
+      setF_sa('')
+      setF_lr('')
+      setF_sr('')
+      setMd_si('')
+      setF_si('')
+      setF_sl('')
+      setE_ap('')
       
     } catch (error) {
-      //
+      alert(error.message);
     }
-
   };
 
   return (

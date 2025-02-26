@@ -155,12 +155,12 @@ const Register = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Erro ao fazer login');
+        throw new Error();
       }
 
       navigate('/');
     } catch (error) {
-      console.error(error);
+      alert(error.message);
     }
   };
 
