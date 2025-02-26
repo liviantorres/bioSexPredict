@@ -22,6 +22,7 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = request.headers.get('Authorization')
+        token = token.replace('Bearer ', '')
         if not token:
             return jsonify({"error": "Token is missing"}), 401
         try:
@@ -51,6 +52,7 @@ def login():
     return jsonify({"token": token, "user_id": user.id}), 200
 
 @user_bp.route('/', methods=['GET'])
+@token_required
 def get_users():
     users = User.query.all()
     return jsonify([user.to_dict() for user in users]), 200
@@ -108,12 +110,13 @@ def delete_user(current_user, user_id):
     return jsonify({"message": "User deleted"}), 200
 
 @individual_bp.route('/', methods=['POST'])
+@token_required
 def create_individual(current_user):
     data = request.json
     
     if not data.get('identificator') or not data.get('f_sa') or not data.get('f_lr') or not data.get('md_si') or not data.get('f_sr') or not data.get('f_si') or not data.get('f_sl') or not data.get('e_ap'):
         return jsonify({"error": "Identificator, f_sa, f_lr, md_si, f_sr, f_si, f_sl, and e_ap are required"}), 400
-    existing_individual = User.query.filter_by(identificator=data['identificator']).first()
+    existing_individual = Individuo.query.filter_by(identificador=data['identificator']).first()
     if existing_individual:
         return jsonify({"error": "Identificator already exists"}), 400
     
@@ -127,7 +130,7 @@ def create_individual(current_user):
     
     sex_prediction = predict(f_sa, f_lr, md_si, f_sr, f_si, f_sl, e_ap)
     
-    new_individual = Individuo(identificator=data['identificator'], sexo=sex_prediction, descricao=data['descricao'], f_sa=data['f_sa'], f_lr=data['f_lr'], md_si=data['md_si'], f_sr=data['f_sr'], f_si=data['f_si'], f_sl=data['f_sl'], e_ap=data['e_ap'], img=data['img'], id_user=current_user.id)
+    new_individual = Individuo(identificador=data['identificator'], sexo=sex_prediction, descricao=data['descricao'], f_sa=data['f_sa'], f_lr=data['f_lr'], md_si=data['md_si'], f_sr=data['f_sr'], f_si=data['f_si'], f_sl=data['f_sl'], e_ap=data['e_ap'], img=data['img'], id_user=current_user.id)
     db.session.add(new_individual)
     db.session.commit()
     return jsonify(new_individual.to_dict()), 201
@@ -158,7 +161,7 @@ def update_individual(current_user, individual_id):
 
     data = request.json
     if 'identificator' in data:
-        individual.identificator = data['identificator']
+        individual.identificador = data['identificator']
     if 'sexo' in data:
         individual.sexo = data['sexo']
     if 'descricao' in data:
