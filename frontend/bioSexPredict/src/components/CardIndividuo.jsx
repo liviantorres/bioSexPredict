@@ -70,7 +70,7 @@ const CardIndividuo = ({ id, img, identificator, sexo }) => {
       {modalEditar && (
         <ModalEditar
           onClose={() => setModalEditar(false)}
-          individuo={individuos[counter]}
+          id={id}
         />
       )}
 
