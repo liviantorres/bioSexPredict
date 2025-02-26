@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
 import { darken } from "polished";
+import { useEffect, useState } from "react";
+import axiosInstance from "../redux/axios_instance";
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -132,7 +134,25 @@ const CloseButton = styled(IoIosClose)`
   }
 `;
 
-const ModalExibir = ({ onClose, individuo, modalEditar, modalExcluir }) => {
+const ModalExibir = ({ onClose, id, modalEditar, modalExcluir }) => {
+
+  const [individuo, setIndividuo] = useState({});
+
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get(`/individuals/${id}`);
+      setIndividuo(response.data);
+    } catch (error) {
+      //
+    }
+  };
+
+  useEffect(() => {
+    if (id != null) {
+      fetchData();
+    }
+  }, [id]);
+
   return (
     <ModalOverlay>
       <ContainerCard>
@@ -146,32 +166,32 @@ const ModalExibir = ({ onClose, individuo, modalEditar, modalExcluir }) => {
               </Label>
             </ImageContainer>
 
-            <Label htmlFor="">Localização:</Label>
-            <P>{individuo.localizacao}</P>
+            {/*<Label htmlFor="">Localização:</Label>
+            <P>{individuo.localizacao}</P>*/}
             <Label htmlFor="">Descrição:</Label>
             <P>{individuo.descricao}</P>
           </DivLeft>
           <DivMiddle>
             <Label htmlFor="">Identificador:</Label>
-            <P>{individuo.id}</P>
+            <P>{individuo.identificador}</P>
 
             <Label htmlFor="">Frontal S-A:</Label>
 
-            <P>{individuo.frontalS_A}</P>
+            <P>{individuo.f_sa}</P>
             <Label htmlFor="">Frontal L-R:</Label>
-            <P>{individuo.frontalL_R}</P>
+            <P>{individuo.f_lr}</P>
             <Label htmlFor="">Frontal S-R:</Label>
-            <P>{individuo.frontalS_R}</P>
+            <P>{individuo.f_sr}</P>
             <Label htmlFor="">Maxilar direito S-I:</Label>
-            <P>{individuo.maxilarDireitoS_I}</P>
+            <P>{individuo.md_si}</P>
           </DivMiddle>
           <DivRight>
             <Label htmlFor="">Frontal S-I:</Label>
-            <P>{individuo.frontalS_I}</P>
+            <P>{individuo.f_si}</P>
             <Label htmlFor="">Frontal S-L:</Label>
-            <P>{individuo.frontalS_L}</P>
+            <P>{individuo.f_sl}</P>
             <Label htmlFor="">Frontal A-R:</Label>
-            <P>{individuo.frontalA_R}</P>
+            <P>{individuo.e_ap}</P>
           </DivRight>
         </Div>
         <ContainerBotoes>
