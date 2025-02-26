@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { HiIdentification } from "react-icons/hi2";
+import { urlApi } from '../utils/urlRequests';
 
 const ContainerPrincipal = styled.div`
   background-color: #1957a7;
@@ -130,15 +131,32 @@ const LabelImg = styled.div`
   font-size: 14px;
 `;
 
-const Perfil = ({ user = {} }) => {
+const Perfil = () => {
   const [formData, setFormData] = useState({
-    nome: user.nome || "",
-    email: user.email || "",
+    nome: "",
+    email: "",
     senhaAtual: "",
     novaSenha: "",
-    imageUrl: "/imagePerfil.svg", 
+    imageUrl: "/imagePerfil.svg",
   });
 
+  const [user, setUserData] = useState(null);
+
+  useEffect(() => {
+    const persistedState = localStorage.getItem('persist:root');
+    if (persistedState) {
+      try {
+        const state = JSON.parse(persistedState);
+        const userString = state.user;
+        if (userString) {
+          const parsedUser = JSON.parse(userString);
+          setUserData(parsedUser);
+        }
+      } catch (error) {
+        console.error("Erro ao desserializar o usuário:", error);
+      }
+    }
+  }, []);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -155,8 +173,33 @@ const Perfil = ({ user = {} }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    console.log("Dados salvos:", formData);
+  const handleSubmit = async () => {
+    if (!user) {
+      console.error("Usuário não carregado corretamente.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${urlApi}/users/${user.userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${user.accessToken}`,
+        },
+        body: JSON.stringify({
+          name: formData.nome,
+          email: formData.email,
+          password: formData.novaSenha,
+        }),
+      });
+
+      const responseData = await response.json();
+      console.log("Perfil atualizado:", responseData);
+      alert("Perfil atualizado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao atualizar perfil:", error);
+      alert("Erro ao atualizar perfil. Tente novamente.");
+    }
   };
 
   return (
@@ -169,16 +212,16 @@ const Perfil = ({ user = {} }) => {
         <ImageContainer>
           <LabelImg htmlFor="fileInput">
             <PerfilImagem
-              src={formData.imageUrl} 
+              src={formData.imageUrl}
               alt="Imagem de Perfil"
-              onClick={() => document.getElementById("fileInput").click()} 
+              onClick={() => document.getElementById("fileInput").click()}
             />
           </LabelImg>
           <InputFile
             id="fileInput"
             type="file"
             accept="image/*"
-            onChange={handleImageChange} 
+            onChange={handleImageChange}
           />
         </ImageContainer>
 
