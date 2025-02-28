@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { setUser } from '../redux/slices/tabSlice';
 import { urlApi } from '../utils/urlRequests';
+import {loginSuccess} from "../redux/slices/authSlide";
 
 const ContainerLogin = styled.div`
   width: 100%;
@@ -171,6 +172,8 @@ const Login = () => {
           userId: responseData.user_id
         })
       );
+
+      dispatch(loginSuccess());
 
       navigate('/inicio');
     } catch (error) {
