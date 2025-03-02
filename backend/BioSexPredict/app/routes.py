@@ -40,7 +40,6 @@ def login():
     data = request.json
     email = data.get('email')
     password = data.get('password')
-
     if not email or not password:
         return jsonify({"error": "Email and password are required"}), 400
 
@@ -53,7 +52,7 @@ def login():
 
 @user_bp.route('/', methods=['GET'])
 @token_required
-def get_users():
+def get_users(current_user):
     users = User.query.all()
     return jsonify([user.to_dict() for user in users]), 200
 
