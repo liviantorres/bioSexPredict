@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
+import axiosInstance from "../redux/axios_instance";
 
 const FullScreenContainer = styled.div`
   position: fixed;
@@ -69,7 +70,22 @@ const CloseButton = styled(IoIosClose)`
   }
 `;
 
-const ModalExcluirIndividuo = ({ onClose }) => {
+const ModalExcluirIndividuo = ({ onClose, onFetch, id }) => {
+
+  const onSubmit = async () => {
+    try {
+      await axiosInstance.delete(`/individuals/${id}`);
+
+      alert("Indivíduo excluído com sucesso!");
+      
+      onClose();
+      onFetch();
+
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <FullScreenContainer>
       <ModalContainer>
@@ -77,7 +93,7 @@ const ModalExcluirIndividuo = ({ onClose }) => {
         <Title>Confirmar Exclusão</Title>
         <Message>Tem certeza de que deseja excluir este indivíduo? Esta ação não pode ser desfeita.</Message>
         <ButtonContainer>
-          <Button primary>
+          <Button onClick={onSubmit} primary>
             Sim, excluir
           </Button>
           <Button onClick={onClose}>Cancelar</Button>

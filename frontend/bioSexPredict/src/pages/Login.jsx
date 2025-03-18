@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { setUser } from '../redux/slices/tabSlice';
+import { urlApi } from '../utils/urlRequests';
+import {loginSuccess} from "../redux/slices/authSlide";
 
 const ContainerLogin = styled.div`
   width: 100%;
@@ -132,6 +138,50 @@ const DivRight = styled.div`
 `;
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onSubmit = async () => {
+    try {
+      const response = await fetch(`${urlApi}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+
+      if (response.status === 401) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Algo inesperado aconteceu');
+      }
+      else if (!response.ok) {
+        throw new Error('Erro ao fazer login');
+      }
+
+      const responseData = await response.json();
+
+      dispatch(
+        setUser({
+          accessToken: responseData.token,
+          userId: responseData.user_id
+        })
+      );
+
+      dispatch(loginSuccess());
+
+      navigate('/inicio');
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+
   return (
     <ContainerLogin>
       <DivContainer>
@@ -143,10 +193,10 @@ const Login = () => {
         <DivRight>
           <h2>Entrar</h2>
           <label htmlFor="">Email:</label>
-          <input type="text" />
+          <input name="email" type="text" onChange={(e) => setEmail(e.target.value)}/>
           <label htmlFor="">Senha:</label>
-          <input type="password" />
-          <button>Entrar</button>
+          <input name="password" type="password" onChange={(e) => setPassword(e.target.value)}/>
+          <button onClick={onSubmit}>Entrar</button>
           <p>
             Não possui uma conta? <a href="/register">Cadastre-se</a>
           </p>

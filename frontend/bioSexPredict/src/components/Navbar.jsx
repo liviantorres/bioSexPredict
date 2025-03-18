@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FiEdit, FiLogOut } from "react-icons/fi";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { clearUser } from '../redux/slices/tabSlice';
+import {persistor} from "../redux/store";
 
 const NavbarContainer = styled.nav`
   background-color: #1c3d67;
@@ -93,6 +97,23 @@ const DropdownMenu = styled.div`
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(clearUser());
+
+    persistor.purge()
+        .then(() => {
+          return persistor.flush();
+        })
+        .then(() => {
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Erro ao limpar o localStorage:", error);
+        });
+  };
 
   return (
     <NavbarContainer>
@@ -116,7 +137,7 @@ const Navbar = () => {
             <NavLink to="/inicio/perfil">
               <FiEdit size={16} /> Editar Perfil
             </NavLink>
-            <NavLink to="/logout">
+            <NavLink onClick={handleLogout}>
               <FiLogOut size={16} color="red" /> Sair
             </NavLink>
           </DropdownMenu>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { IoIosClose } from "react-icons/io";
-import { darken } from "polished";
+import axiosInstance from "../redux/axios_instance";
 
 const FullScreenContainer = styled.div`
   position: fixed;
@@ -161,20 +161,37 @@ const CloseButton = styled(IoIosClose)`
   }
 `;
 
-const ModalEditar = ({ onClose, individuo }) => {
-  const [image, setImage] = useState(individuo.img || "/imagePerfil.svg");
-  const [localizacao, setLocalizacao] = useState(individuo.localizacao || "");
-  const [descricao, setDescricao] = useState(individuo.descricao || "");
-  const [identificador, setIdentificador] = useState(individuo.id || "");
-  const [frontalSA, setFrontalSA] = useState(individuo.frontalS_A || "");
-  const [frontalLR, setFrontalLR] = useState(individuo.frontalL_R || "");
-  const [frontalSR, setFrontalSR] = useState(individuo.frontalS_R || "");
-  const [maxilarDirSI, setMaxilarDirSI] = useState(
-    individuo.maxilarDireitoS_I || ""
-  );
-  const [frontalSI, setFrontalSI] = useState(individuo.frontalS_I || "");
-  const [frontalSL, setFrontalSL] = useState(individuo.frontalS_L || "");
-  const [frontalAR, setFrontalAR] = useState(individuo.frontalA_R || "");
+const ModalEditar = ({ onClose, id }) => {
+  const [image, setImage] = useState("/imagePerfil.svg");
+  const [localizacao, setLocalizacao] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [identificador, setIdentificador] = useState("");
+  const [frontalSA, setFrontalSA] = useState(0);
+  const [frontalLR, setFrontalLR] = useState(0);
+  const [frontalSR, setFrontalSR] = useState(0);
+  const [maxilarDirSI, setMaxilarDirSI] = useState(0);
+  const [frontalSI, setFrontalSI] = useState(0);
+  const [frontalSL, setFrontalSL] = useState(0);
+  const [frontalAR, setFrontalAR] = useState(0);
+
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get(`/individuals/${id}`);
+      setImage(response.data.img || "/imagePerfil.svg");
+      setLocalizacao(response.data.localizacao || "");
+      setDescricao(response.data.descricao || "");
+      setIdentificador(response.data.identificador || "");
+      setFrontalSA(response.data.f_sa || 0);
+      setFrontalLR(response.data.f_lr || 0);
+      setFrontalSR(response.data.f_sr || 0);
+      setMaxilarDirSI(response.data.md_si || 0);
+      setFrontalSI(response.data.f_si || 0);
+      setFrontalSL(response.data.f_sl || 0);
+      setFrontalAR(response.data.e_ap || 0);
+    } catch (error) {
+      //
+    }
+  };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -186,6 +203,34 @@ const ModalEditar = ({ onClose, individuo }) => {
       reader.readAsDataURL(file);
     }
   };
+
+  const onSubmit = async () => {
+    try {
+      await axiosInstance.put(`/individuals/${id}`, {
+        descricao: descricao,
+        e_ap: frontalAR,
+        f_lr: frontalLR,
+        f_sa: frontalSA,
+        f_si: frontalSI,
+        f_sl: frontalSL,
+        f_sr: frontalSR,
+        identificator: identificador,
+        md_si: maxilarDirSI,
+        img: image
+      });
+
+      alert("Indivíduo editado com sucesso!");
+      
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (id != null) {
+      fetchData();
+    }
+  }, [id]);
 
   return (
     <FullScreenContainer>
@@ -290,7 +335,7 @@ const ModalEditar = ({ onClose, individuo }) => {
             />
           </DivRight>
         </Div>
-        <Button>Salvar</Button>
+        <Button onClick={onSubmit}>Salvar</Button>
       </ContainerCard>
     </FullScreenContainer>
   );
